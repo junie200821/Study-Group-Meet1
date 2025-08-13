@@ -102,12 +102,15 @@ function App() {
         tags: createForm.tags ? createForm.tags.split(',').map(tag => tag.trim()) : []
       };
 
-      await axios.post(`${API_BASE_URL}/api/sessions`, sessionData);
+      const response = await axios.post(`${API_BASE_URL}/api/sessions`, sessionData);
       
-      setCreateForm({ title: '', description: '', date_time: '', tags: '' });
-      setIsCreateDialogOpen(false);
-      fetchSessions();
-      fetchTrendingSessions();
+      if (response.status === 200) {
+        setCreateForm({ title: '', description: '', date_time: '', tags: '' });
+        setIsCreateDialogOpen(false);
+        fetchSessions();
+        fetchTrendingSessions();
+        alert('Session created successfully!');
+      }
     } catch (error) {
       console.error('Error creating session:', error);
       alert('Failed to create session. Please try again.');
