@@ -132,7 +132,6 @@ async def get_sessions():
 async def create_session(request: CreateSessionRequest):
     """Create a new study session"""
     # For now, we'll use a simple approach - in real app, we'd get this from auth
-    # Let's assume the first part of title indicates the creator
     creator_username = "anonymous"  # This should come from authentication
     creator_id = str(uuid.uuid4())
     
@@ -150,8 +149,12 @@ async def create_session(request: CreateSessionRequest):
         "is_expired": False
     }
     
-    sessions_collection.insert_one(session_data)
-    session_data['_id'] = str(session_data['_id']) if '_id' in session_data else None
+    # Insert into database
+    result = sessions_collection.insert_one(session_data)
+    
+    # Remove the MongoDB _id from the response
+    if '_id' in session_data:
+        del session_data['_id']
     
     return {"message": "Session created successfully", "session": session_data}
 
