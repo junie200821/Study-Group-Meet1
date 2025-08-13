@@ -1,0 +1,14 @@
+{
+  "name": "studymeet-vercel",
+  "version": "1.0.0",
+  "description": "StudyMeet - Study Group Sessions Platform",
+  "scripts": {
+    "dev": "cd frontend && npm start",
+    "build": "cd frontend && npm run build",
+    "start": "cd frontend && npm start",
+    "install-deps": "cd frontend && npm install"
+  },
+  "keywords": ["studymeet", "study-groups", "react", "fastapi"],
+  "author": "StudyMeet Team",
+  "license": "MIT"
+}
