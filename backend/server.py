@@ -66,15 +66,21 @@ class LoginRequest(BaseModel):
 def session_to_dict(session_doc):
     """Convert MongoDB document to dict, handling ObjectId"""
     if session_doc:
-        session_doc['_id'] = str(session_doc['_id'])
-        return session_doc
+        # Create a copy to avoid modifying the original
+        doc_copy = dict(session_doc)
+        if '_id' in doc_copy:
+            doc_copy['_id'] = str(doc_copy['_id'])
+        return doc_copy
     return None
 
 def user_to_dict(user_doc):
     """Convert MongoDB document to dict, handling ObjectId"""
     if user_doc:
-        user_doc['_id'] = str(user_doc['_id'])
-        return user_doc
+        # Create a copy to avoid modifying the original
+        doc_copy = dict(user_doc)
+        if '_id' in doc_copy:
+            doc_copy['_id'] = str(doc_copy['_id'])
+        return doc_copy
     return None
 
 # Routes
