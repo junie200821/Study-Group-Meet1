@@ -77,9 +77,13 @@ function App() {
       const response = await axios.post(`${API_BASE_URL}/api/auth/login`, {
         username: loginForm.username
       });
-      setCurrentUser(response.data.user);
-      setIsLoginDialogOpen(false);
-      setLoginForm({ username: '' });
+      
+      if (response.status === 200 && response.data.user) {
+        setCurrentUser(response.data.user);
+        setIsLoginDialogOpen(false);
+        setLoginForm({ username: '' });
+        alert(`Welcome ${response.data.user.username}!`);
+      }
     } catch (error) {
       console.error('Login error:', error);
       alert('Login failed. Please try again.');
