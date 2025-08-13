@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
 import { Calendar, Clock, Users, Plus, Search, TrendingUp, BookOpen, Hash } from 'lucide-react';
 import './App.css';
 
-const API_BASE_URL = process.env.REACT_APP_BACKEND_URL;
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || (process.env.NODE_ENV === 'production' ? '' : process.env.REACT_APP_BACKEND_URL);
 
 function App() {
   const [sessions, setSessions] = useState([]);
