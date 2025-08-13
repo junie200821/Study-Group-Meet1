@@ -103,9 +103,17 @@ async def login(request: LoginRequest):
         return {"message": "Login successful", "user": user_data}
     else:
         # Create new user
-        user = User(username=username)
-        user_dict = user.dict()
+        user_dict = {
+            "id": str(uuid.uuid4()),
+            "username": username,
+            "created_at": datetime.now(timezone.utc)
+        }
         users_collection.insert_one(user_dict)
+        
+        # Remove MongoDB _id from response
+        if '_id' in user_dict:
+            del user_dict['_id']
+            
         return {"message": "User created and logged in", "user": user_dict}
 
 @app.get("/api/sessions")
